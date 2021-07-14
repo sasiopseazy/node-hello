@@ -1,24 +1,30 @@
-name: Docker Image CI
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+name: Node CI
+on: [push]
 jobs:
-
   build:
     runs-on: ubuntu-latest
-    steps: 
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    
+    - name: Test the Testcases 
+      run: |
+        npm install
+        npm run build --if-present
+        npm test
+    - name: Login to Docker Hub
+      run: docker login --username "${{ secrets.DOCKER_USERNAME }}" --password "${{ secrets.DOCKER_PASSWORD }}"
+    - name: Build the Docker Image 
+      run: docker build . --file Dockerfile --tag 15061995/sms_api
+    - name: Push the Docker Image 
+      run: docker push 15061995/sms_api
       
-    - name: Build and Push Docker Image
-     uses: mr-smithers-excellent/docker-build-push@v5
-     with:
-  image: 15061995/sms_api
-  registry: docker.io
-  username: ${{ secrets.DOCKER_USERNAME }}
-  password: ${{ secrets.DOCKER_PASSWORD }}
+      env:
+        CI: true
