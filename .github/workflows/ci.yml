@@ -20,11 +20,8 @@ jobs:
         npm run build --if-present
         npm test
     - name: Login to Docker Hub
-      run: docker login --username "${{ secrets.DOCKER_USERNAME }}" --password "${{ secrets.DOCKER_PASSWORD }}"
-    - name: Build the Docker Image 
-      run: docker build . --file Dockerfile --tag 15061995/sms_api
-    - name: Push the Docker Image 
-      run: docker push 15061995/sms_api
-      
-      env:
-        CI: true
+      registry: hub.docker.io 
+    with: # Set the secret as an input
+    DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    
