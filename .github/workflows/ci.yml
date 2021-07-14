@@ -49,10 +49,10 @@ jobs:
 
     - name: Build the Docker Image 
 
-      run: docker build . --file Dockerfile --tag 15061995/nodejs1
+      run: docker build . --file Dockerfile --tag 15061995/nodejs
 
     - name: Push the Docker Image 
 
-      run: docker push 15061995/nodejs1
+      run: docker push 15061995/nodejs
 
       
