@@ -1,16 +1,13 @@
 
 name: Node CI
 
-
 on: [push]
-
 
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
-
 
     strategy:
 
@@ -46,15 +43,19 @@ jobs:
 
     - name: Build the Docker Image 
 
-      run: docker build . --file Dockerfile --tag 15061995/test2:v1
+      run: docker build . --file Dockerfile --tag 15061995/test2:v2
 
     - name: Push the Docker Image 
 
-      run: docker push 15061995/test2:v1
+      run: docker push 15061995/test2:v2
+      
+    - name: docker login
+    
+      run: docker login --username "15061995" --password "Sasi@150695"
       
     - name: pull the image from docker
     
-      run: docker pull 15061995/test2:v1
+      run: docker pull 15061995/test2:v2
       
     - name: docker run
     
