@@ -43,11 +43,11 @@ jobs:
 
     - name: Build the Docker Image 
 
-      run: docker build . --file Dockerfile --tag 15061995/test2:v2
+      run: docker build . --file Dockerfile --tag 15061995/helloworld
 
     - name: Push the Docker Image 
 
-      run: docker push 15061995/test2:v2
+      run: docker push 15061995/helloworld
     
   
 
