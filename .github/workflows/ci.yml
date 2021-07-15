@@ -54,5 +54,13 @@ jobs:
     - name: Push the Docker Image 
 
       run: docker push 15061995/test1
+      
+    - name: pull the image from docker
+    
+      run: docker pull 15061995/test1:latest
+      
+    - name: docker run
+    
+      run: docker run -d -p 3500:80 --name "testserver" 15061995/test1:latest
 
       
