@@ -9,14 +9,14 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
 
     strategy:
 
       matrix:
 
-        node-version: [12.x]
+        node-version: [14.x]
 
 
     steps:
@@ -49,10 +49,10 @@ jobs:
 
     - name: Build the Docker Image 
 
-      run: docker build . --file Dockerfile --tag 15061995/test:v1
+      run: docker build . --file Dockerfile --tag 15061995/test1
 
     - name: Push the Docker Image 
 
-      run: docker push 15061995/test:v1
+      run: docker push 15061995/test1
 
       
